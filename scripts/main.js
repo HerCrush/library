@@ -11,9 +11,13 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
-    this.info = function() {
-        return `"${title}" by ${author}, ${pages} pages, ${(read)?'already read':'not read yet'}`;
-    }
+}
+
+Book.prototype.info = function() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${(this.read)?'already read':'not read yet'}`;
+}
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
 }
 
 function addBookToLibrary() {
@@ -34,41 +38,60 @@ function displayBook() {
     libraryRow.length=0;
     for(let i=0;i<library.length;i++) {
         libraryRow.push(document.createElement('tr'));
-        libraryRow[i].setAttribute("data-index", i);
+
+        const bookColor = Math.floor(Math.random()*360);
 
         const bookTitleCell = document.createElement('td');
+        bookTitleCell.style.cssText = `color: white;
+            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
+            hsl(${bookColor}, 65%, 50%) 50%,
+            hsl(${bookColor}, 65%, 20%));`
         bookTitleCell.textContent = library[i].title;
-        libraryRow[i].appendChild(bookTitleCell);
 
         const bookAuthorCell = document.createElement('td');
+        bookAuthorCell.style.cssText = `color: white;
+            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
+            hsl(${bookColor}, 65%, 50%) 50%,
+            hsl(${bookColor}, 65%, 20%));`
         bookAuthorCell.textContent = library[i].author;
-        libraryRow[i].appendChild(bookAuthorCell);
 
         const bookPagesCell = document.createElement('td');
+        bookPagesCell.style.cssText = `color: white;
+            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
+            hsl(${bookColor}, 65%, 50%) 50%,
+            hsl(${bookColor}, 65%, 20%));`
         bookPagesCell.textContent = library[i].pages;
-        libraryRow[i].appendChild(bookPagesCell);
 
         const bookReadCell = document.createElement('td');
-        bookReadCell.textContent = (library[i].read)?'yes':'no';
-        libraryRow[i].appendChild(bookReadCell);
+        bookReadCell.style.cssText = `color: white;
+            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
+            hsl(${bookColor}, 65%, 50%) 50%,
+            hsl(${bookColor}, 65%, 20%));`
+        bookReadCell.classList.add("read_cell");
+        const readCheckbox = document.createElement('input');
+        readCheckbox.type = "checkbox";
+        readCheckbox.checked = library[i].read;
+        bookReadCell.appendChild(readCheckbox);
+        readCheckbox.addEventListener('change', () => {library[i].toggleRead()});
 
         const removeBookCell = document.createElement('td');
+        removeBookCell.classList.add("remove_cell");
         const removeBookBtn = document.createElement('button');
-        removeBookBtn.setAttribute("data-index", i);
+        removeBookBtn.dataset.index = i;
         removeBookBtn.textContent = "remove";
-        removeBookBtn.addEventListener('click', removeBook);
         removeBookCell.appendChild(removeBookBtn);
-        libraryRow[i].appendChild(removeBookCell);
+        removeBookBtn.addEventListener('click', removeBook);
 
+        libraryRow[i].append(bookTitleCell, bookAuthorCell, bookPagesCell, bookReadCell, removeBookCell);
         bookList.appendChild(libraryRow[i]);
     }
 }
 
 function removeBook(e) {
-    let index = e.target.attributes[0].value;
-    library.splice(index,1);
-    libraryRow.splice(index,1);
-    document.querySelector(`tr[data-index="${index}"]`).remove();
+    let index = e.target.dataset.index;
+    library.splice(index, 1);
+    libraryRow[index].remove();
+    libraryRow.splice(index, 1);
 }
 
 addBookBtn.addEventListener('click', addBookToLibrary);
