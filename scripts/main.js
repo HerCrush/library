@@ -79,6 +79,7 @@ function removeBook(e) {
     let index = e.target.dataset.index;
     library.splice(index, 1);
     libraryRow[index].remove();
+    bookColors.splice(index, 1);
     displayBook();
 }
 
@@ -91,8 +92,8 @@ function colorBook(i) {
         color = bookColors[i] = Math.floor(Math.random()*360);
     }
     document.querySelectorAll(`td[data-colored="${i}"]`).forEach( e => {e.style.cssText = `color: white;
-        background: linear-gradient(hsl(${color}, 65%, 65%),
-        hsl(${color}, 65%, 50%) 50%,
+        background: linear-gradient(hsl(${color}, 65%, 65%) 20%,
+        hsl(${color}, 65%, 50%) 80%,
         hsl(${color}, 65%, 20%));`
     } )
 }
