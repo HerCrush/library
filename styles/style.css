@@ -1,11 +1,58 @@
+body{
+    background: url("https://cdn1.neolith.com/wp-content/uploads/wp-imk/colecciones/fusion/basalt-beige/despiece/basalt-beige.jpg");
+}
+
+#container{
+    margin: 1% 10%;
+}
+
+#input_container{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#new_book{
+    margin: 5px;
+    font-size: 12pt;
+    padding: 5px;
+}
+
+#book_input{
+    margin: 5px;
+}
+
+#book_input input, button{
+    font-size: 12pt;
+}
+
+#pages_input{
+    width: 100px;
+}
+
+#books_container{
+    background: url("/home/nacho/Downloads/Wood-Grain-Textures/Wood Grain Textures/Wood-Grain-Texture-05.png") rgb(158, 98, 8);
+    color: hsl(36, 80%, 60%);
+    background-size: 100% 100%;
+    width: 900px;
+    height: 90vh;
+    padding-left: 100px;
+    padding-right: 0;
+}
+
 #book_list{
     table-layout: fixed;
     text-align: center;
+    border-collapse: separate;
+    border-spacing: 0 20px;
 }
 
-#book_list th,td{
-    border: solid black 5px;
-    height:50px;
+#book_list th{
+    vertical-align: middle;
+}
+
+#book_list td{
+    height:80px;
     vertical-align: middle;
 }
 
@@ -17,8 +64,12 @@
     width: 100px;
 }
 
-.remove_cell{
+.remove_cell button{
+    color: hsl(36, 80%, 60%);
     border: none;
+    font-size: 12pt;
+    background: transparent;
+    margin: 15px;
 }
 
 .hidden{

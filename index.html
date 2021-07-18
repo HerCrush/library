@@ -7,27 +7,30 @@
         <link href="styles/style.css" rel="stylesheet" type="text/css" media="all">
     </head>
     <body>
-        <button id="new_book">NEW BOOK</button>
-        <div id="book_input" class="hidden">
-            <input id="title_input" type="text" placeholder="book title...">
-            <input id="author_input" type="text" placeholder="book author...">
-            <input id="pages_input" type="text" placeholder="number of pages...">
-            <label for="read_input">Already read
-                <input id="read_input" type="checkbox">
-            </label>
-            <button id="add_book">add book</button>
+        <div id="container">
+            <div id="input_container">
+                <button id="new_book">NEW BOOK</button>
+                <div id="book_input" class="hidden">
+                    <input id="title_input" type="text" placeholder="book title...">
+                    <input id="author_input" type="text" placeholder="book author...">
+                    <input id="pages_input" type="text" placeholder="pages...">
+                    <label for="read_input">Already read
+                        <input id="read_input" type="checkbox">
+                    </label>
+                    <button id="add_book">add book</button>
+                </div>
+            </div>
+            <div id="books_container">
+                <table id="book_list">
+                    <tr>
+                        <th class="title_header">Title</th>
+                        <th class="author_header">Author</th>
+                        <th class="pages_header">Pages</th>
+                        <th class="read_header">Already read</th>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div id="books_container">
-            <table id="book_list">
-                <tr>
-                    <th class="title_header">Title</th>
-                    <th class="author_header">Author</th>
-                    <th class="pages_header">Pages</th>
-                    <th class="read_header">Already read</th>
-                </tr>
-            </table>
-        </div>
-
         <script src="scripts/main.js"></script>
     </body>
 </html>
