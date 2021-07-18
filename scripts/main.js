@@ -5,6 +5,7 @@ const addBookBtn = document.querySelector('#add_book');
 
 let library = [];
 let libraryRow = [];
+let bookColors = [];
 
 function Book(title, author, pages, read) {
     this.title = title
@@ -39,34 +40,20 @@ function displayBook() {
     for(let i=0;i<library.length;i++) {
         libraryRow.push(document.createElement('tr'));
 
-        const bookColor = Math.floor(Math.random()*360);
-
         const bookTitleCell = document.createElement('td');
-        bookTitleCell.style.cssText = `color: white;
-            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
-            hsl(${bookColor}, 65%, 50%) 50%,
-            hsl(${bookColor}, 65%, 20%));`
+        bookTitleCell.dataset.colored = i;
         bookTitleCell.textContent = library[i].title;
 
         const bookAuthorCell = document.createElement('td');
-        bookAuthorCell.style.cssText = `color: white;
-            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
-            hsl(${bookColor}, 65%, 50%) 50%,
-            hsl(${bookColor}, 65%, 20%));`
+        bookAuthorCell.dataset.colored = i;
         bookAuthorCell.textContent = library[i].author;
 
         const bookPagesCell = document.createElement('td');
-        bookPagesCell.style.cssText = `color: white;
-            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
-            hsl(${bookColor}, 65%, 50%) 50%,
-            hsl(${bookColor}, 65%, 20%));`
+        bookPagesCell.dataset.colored = i;
         bookPagesCell.textContent = library[i].pages;
 
         const bookReadCell = document.createElement('td');
-        bookReadCell.style.cssText = `color: white;
-            background: linear-gradient(hsl(${bookColor}, 65%, 65%),
-            hsl(${bookColor}, 65%, 50%) 50%,
-            hsl(${bookColor}, 65%, 20%));`
+        bookReadCell.dataset.colored = i;
         bookReadCell.classList.add("read_cell");
         const readCheckbox = document.createElement('input');
         readCheckbox.type = "checkbox";
@@ -84,6 +71,7 @@ function displayBook() {
 
         libraryRow[i].append(bookTitleCell, bookAuthorCell, bookPagesCell, bookReadCell, removeBookCell);
         bookList.appendChild(libraryRow[i]);
+        colorBook(i);
     }
 }
 
@@ -91,7 +79,22 @@ function removeBook(e) {
     let index = e.target.dataset.index;
     library.splice(index, 1);
     libraryRow[index].remove();
-    libraryRow.splice(index, 1);
+    displayBook();
+}
+
+function colorBook(i) {
+    let color;
+    if(i >= 0 && i < bookColors.length) {
+        color = bookColors[i];
+    }
+    else {
+        color = bookColors[i] = Math.floor(Math.random()*360);
+    }
+    document.querySelectorAll(`td[data-colored="${i}"]`).forEach( e => {e.style.cssText = `color: white;
+        background: linear-gradient(hsl(${color}, 65%, 65%),
+        hsl(${color}, 65%, 50%) 50%,
+        hsl(${color}, 65%, 20%));`
+    } )
 }
 
 addBookBtn.addEventListener('click', addBookToLibrary);
