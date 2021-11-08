@@ -23,12 +23,44 @@ Book.prototype.toggleRead = function() {
 
 loadData();
 
+const checkInput = function(titleInput, authorInput, pagesInput) {
+    titleInput.setCustomValidity('');
+    authorInput.setCustomValidity('');
+    pagesInput.setCustomValidity('');
+    if(titleInput.checkValidity() === false) {
+        titleInput.setCustomValidity('Please, enter the book title.');
+        alert(titleInput.validationMessage);
+        return false;
+    }
+    else if(authorInput.checkValidity() === false) {
+        authorInput.setCustomValidity('Please, enter the book author.');
+        alert(authorInput.validationMessage);
+        return false;
+    }
+    else if(pagesInput.checkValidity() === false) {
+        pagesInput.setCustomValidity('Please, enter the number of pages.');
+        alert(pagesInput.validationMessage);
+        return false;
+    }
+    else {
+        titleInput.setCustomValidity('');
+        authorInput.setCustomValidity('');
+        pagesInput.setCustomValidity('');
+        return true;
+    }
+}
+
 function addBookToLibrary() {
+    const titleInput = document.querySelector('#title_input');
+    const authorInput = document.querySelector('#author_input');
+    const pagesInput = document.querySelector('#pages_input');
+    const readInput = document.querySelector('#read_input');
+    if(checkInput(titleInput, authorInput, pagesInput) === false) return;
     library.push( new Book(
-        document.querySelector('#title_input').value,
-        document.querySelector('#author_input').value,
-        document.querySelector('#pages_input').value,
-        document.querySelector('#read_input').checked
+        titleInput.value,
+        authorInput.value,
+        pagesInput.value,
+        readInput.checked
     ) );
     displayBooks();
     bookInput.classList.toggle("hidden");
